@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsip Internal - KPU Labuhanbatu Utara</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
+<link rel="icon" href="assets/icon/icon-192.png">
+
+<style>
+html,body{
+  margin:0;
+  height:100%;
+  font-family: "Segoe UI", system-ui;
+  background:#f1f5f9;
+}
+
+/* SPLASH SCREEN */
+#splash{
+  position:fixed;
+  inset:0;
+  background:#0f172a;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  z-index:9999;
+}
+
+#splash img{
+  width:110px;
+  margin-bottom:20px;
+}
+
+.spinner{
+  width:35px;
+  height:35px;
+  border:4px solid rgba(255,255,255,.2);
+  border-top:4px solid white;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin-top:20px;
+}
+
+@keyframes spin{
+  to{ transform:rotate(360deg); }
+}
+
+/* HEADER */
+header{
+  background:#1e293b;
+  color:white;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:14px;
+  font-weight:600;
+}
+
+header .left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+header img{
+  width:35px;
+}
+
+header .right{
+  font-size:12px;
+  opacity:.8;
+}
+
+/* IFRAME */
+iframe{
+  width:100%;
+  height:calc(100% - 55px);
+  border:none;
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <img src="assets/icon/icon-512.png" alt="Logo">
+  <div>ARSIP INTERNAL</div>
+  <div>KPU LABUHANBATU UTARA</div>
+  <div class="spinner"></div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="left">
+    <img src="assets/icon/icon-192.png">
+    <div>KOMISI PEMILIHAN UMUM KABUPATEN LABUHANBATU UTARA</div>
+  </div>
+  <div class="right">
+    Sistem Informasi Digital Arsip
+  </div>
+</header>
+
+<!-- GOOGLE SCRIPT -->
+<iframe 
+src="https://script.google.com/macros/s/AKfycbybYVYebBBRarYRiAytZAdLTLuTPHVThHoKkpMyXFf_52U32QxY2eb1C2Gvi3sRJZI5Ww/exec"
+onload="document.getElementById('splash').style.display='none'">
+</iframe>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
