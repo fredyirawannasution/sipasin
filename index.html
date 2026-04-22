@@ -11,59 +11,37 @@
 
   <style>
     :root{
-      --bg:#eef2f7;
-      --surface:#ffffff;
+      --bg1:#e2e8f0;
+      --bg2:#cbd5e1;
       --primary:#0f172a;
-      --primary-2:#1e293b;
-      --accent:#0ea5e9;
-      --text:#0f172a;
-      --muted:#64748b;
-      --line:rgba(15,23,42,.08);
-      --line-strong:rgba(255,255,255,.08);
-      --white:#ffffff;
-      --shadow:0 16px 36px rgba(15, 23, 42, 0.12);
-      --shadow-soft:0 8px 20px rgba(15, 23, 42, 0.08);
-      --radius-xl:20px;
-      --radius-lg:16px;
-      --max-width:1600px;
-      --topbar-height:190px;
+      --accent:#38bdf8;
     }
 
-    *{ box-sizing:border-box; }
+    *{
+      box-sizing:border-box;
+    }
 
     html, body{
       margin:0;
       height:100%;
-      font-family:"Segoe UI", Inter, system-ui, sans-serif;
-      color:var(--text);
-      background:linear-gradient(135deg, #e2e8f0, #f8fafc 42%, #e2e8f0);
+      font-family:"Segoe UI", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.20), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(14,165,233,.18), transparent 25%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow:hidden;
     }
 
     body{
       display:flex;
       flex-direction:column;
-      overflow:hidden;
     }
 
-    body.app-focused .topbar{
-      max-height:0;
-      opacity:0;
-      transform:translateY(-14px);
-      margin:0;
-      border-width:0;
-      pointer-events:none;
-    }
-
-    body.app-focused .shell{
-      margin-top:12px;
-    }
-
-    a{ text-decoration:none; }
-
+    /* SPLASH */
     #splash{
       position:fixed;
       inset:0;
-      background:linear-gradient(145deg, #0f172a, #1e293b 55%, #0b1120);
+      background:linear-gradient(160deg, #0f172a, #1e293b);
       display:flex;
       flex-direction:column;
       align-items:center;
@@ -80,238 +58,49 @@
     }
 
     #splash img{
-      width:112px;
-      margin-bottom:20px;
-      filter:drop-shadow(0 12px 20px rgba(0,0,0,.28));
+      width:110px;
+      margin-bottom:18px;
       animation:floatLogo 2.5s ease-in-out infinite;
     }
 
     #splash .title{
-      font-size:30px;
-      font-weight:800;
-      letter-spacing:1px;
+      font-size:28px;
+      font-weight:700;
       margin-bottom:6px;
-      animation:fadeUp .7s ease;
     }
 
     #splash .subtitle{
-      font-size:13px;
+      font-size:14px;
       opacity:.9;
       letter-spacing:2px;
       text-transform:uppercase;
-      animation:fadeUp 1s ease;
     }
 
     .spinner{
-      width:44px;
-      height:44px;
+      width:42px;
+      height:42px;
       border:4px solid rgba(255,255,255,.18);
       border-top:4px solid #38bdf8;
       border-radius:50%;
       animation:spin 1s linear infinite;
-      margin-top:26px;
-      box-shadow:0 0 22px rgba(56,189,248,.30);
+      margin-top:24px;
     }
 
-    @keyframes spin{ to{ transform:rotate(360deg); } }
-    @keyframes fadeUp{
-      from{ opacity:0; transform:translateY(18px); }
-      to{ opacity:1; transform:translateY(0); }
+    @keyframes spin{
+      to{ transform:rotate(360deg); }
     }
+
     @keyframes floatLogo{
       0%,100%{ transform:translateY(0); }
       50%{ transform:translateY(-8px); }
     }
 
-    .shell{
-      width:min(calc(100% - 24px), var(--max-width));
-      margin:12px auto;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+    /* FULL FRAME */
+    .frame-wrapper{
       flex:1;
-      min-height:0;
-      transition:margin-top .35s ease;
-    }
-
-    .topbar{
-      background:linear-gradient(135deg, rgba(15,23,42,.96), rgba(30,41,59,.92));
-      border:1px solid var(--line-strong);
-      border-radius:var(--radius-xl);
-      box-shadow:var(--shadow);
+      width:100%;
+      height:100%;
       overflow:hidden;
-      animation:fadeUp .75s ease;
-      transition:max-height .35s ease, opacity .28s ease, transform .35s ease, margin .35s ease, border-width .2s ease;
-      max-height:260px;
-    }
-
-    .topbar-main{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:14px 18px 12px;
-      color:var(--white);
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-      flex:1;
-    }
-
-    .brand-logo{
-      width:44px;
-      height:44px;
-      object-fit:contain;
-      border-radius:12px;
-      background:rgba(255,255,255,.06);
-      padding:5px;
-      box-shadow:var(--shadow-soft);
-      flex-shrink:0;
-    }
-
-    .brand-copy{ min-width:0; }
-
-    .eyebrow{
-      font-size:10px;
-      text-transform:uppercase;
-      letter-spacing:1.8px;
-      opacity:.65;
-      margin-bottom:4px;
-    }
-
-    .brand-title{
-      font-size:14px;
-      line-height:1.35;
-      font-weight:700;
-      letter-spacing:.2px;
-    }
-
-    .brand-subtitle{
-      font-size:12px;
-      color:rgba(255,255,255,.68);
-      margin-top:4px;
-    }
-
-    .status-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:9px 12px;
-      border-radius:999px;
-      background:rgba(56,189,248,.10);
-      border:1px solid rgba(56,189,248,.18);
-      font-size:12px;
-      font-weight:600;
-      white-space:nowrap;
-      color:#e0f2fe;
-    }
-
-    .status-dot{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:#38bdf8;
-    }
-
-    .toolbar-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:0;
-      border-top:1px solid rgba(255,255,255,.06);
-      background:rgba(255,255,255,.015);
-    }
-
-    .toolbar-group{
-      padding:12px 16px 14px;
-      min-width:0;
-    }
-
-    .toolbar-group + .toolbar-group{
-      border-left:1px solid rgba(255,255,255,.06);
-    }
-
-    .group-label{
-      color:rgba(255,255,255,.64);
-      font-size:10px;
-      text-transform:uppercase;
-      letter-spacing:1.8px;
-      font-weight:700;
-      margin-bottom:10px;
-    }
-
-    .button-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-
-    .nav-btn{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      padding:10px 12px;
-      border-radius:13px;
-      color:var(--white);
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.07);
-      transition:transform .18s ease, background .18s ease, border-color .18s ease;
-      min-height:42px;
-    }
-
-    .nav-btn:hover{
-      transform:translateY(-1px);
-      background:rgba(255,255,255,.08);
-      border-color:rgba(255,255,255,.12);
-    }
-
-    .nav-btn-icon{
-      width:17px;
-      height:17px;
-      object-fit:contain;
-      flex-shrink:0;
-    }
-
-    .nav-btn-text{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      line-height:1.15;
-    }
-
-    .nav-btn-title{
-      font-size:12px;
-      font-weight:700;
-      color:#fff;
-    }
-
-    .nav-btn-subtitle{
-      font-size:10px;
-      color:rgba(255,255,255,.58);
-      margin-top:3px;
-    }
-
-    .frame-panel{
-      flex:1;
-      min-height:0;
-      background:var(--surface);
-      border:none;
-      border-radius:var(--radius-xl);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      position:relative;
-      margin-bottom:0;
-    }
-
-    .iframe-wrap{
-      flex:1;
-      min-height:0;
-      background:#fff;
     }
 
     iframe{
@@ -321,41 +110,16 @@
       background:#fff;
     }
 
-    @media (max-width: 1080px){
-      .toolbar-grid{ grid-template-columns:1fr; }
-      .toolbar-group + .toolbar-group{
-        border-left:none;
-        border-top:1px solid rgba(255,255,255,.06);
-      }
-    }
-
-    @media (max-width: 820px){
-      body{ overflow:auto; }
-      .shell{
-        width:min(calc(100% - 14px), var(--max-width));
-        margin:8px auto;
-        gap:8px;
-      }
-      .topbar-main{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .status-badge{ width:100%; }
-      .brand-title{ font-size:13px; }
-      #splash .title{
-        font-size:24px;
-        text-align:center;
-      }
-      #splash .subtitle{
-        text-align:center;
-        padding:0 20px;
-        letter-spacing:1px;
+    @media (max-width: 768px){
+      body{
+        overflow:auto;
       }
     }
   </style>
 </head>
 <body>
 
+  <!-- SPLASH -->
   <div id="splash">
     <img src="assets/icon/icon-512.png" alt="Logo" />
     <div class="title">ARSIP INTERNAL</div>
@@ -363,96 +127,13 @@
     <div class="spinner"></div>
   </div>
 
-  <main class="shell">
-    <section class="topbar">
-      <div class="topbar-main">
-        <div class="brand">
-          <img class="brand-logo" src="assets/icon/icon-192.png" alt="Logo KPU" />
-          <div class="brand-copy">
-            <div class="eyebrow">Portal Internal Enterprise</div>
-            <div class="brand-title">KOMISI PEMILIHAN UMUM KABUPATEN LABUHANBATU UTARA</div>
-            <div class="brand-subtitle">Portal arsip, layanan digital, dan akses aplikasi internal yang modern, profesional, dan terintegrasi.</div>
-          </div>
-        </div>
-
-        <div class="status-badge">
-          <span class="status-dot"></span>
-          <span>Layanan Internal Aktif</span>
-        </div>
-      </div>
-
-      <div class="toolbar-grid">
-        <div class="toolbar-group">
-          <div class="group-label">Layanan Utama</div>
-          <div class="button-row">
-            <a class="nav-btn" href="https://kab-labuhanbatuutara.kpu.go.id/" target="_blank" rel="noopener noreferrer" aria-label="Website KPU">
-              <img class="nav-btn-icon" src="assets/web.png" alt="Icon Website" />
-              <span class="nav-btn-text">
-                <span class="nav-btn-title">Website KPU</span>
-                <span class="nav-btn-subtitle">Portal resmi KPU Labura</span>
-              </span>
-            </a>
-
-            <a class="nav-btn" href="https://www.instagram.com/kpulabura/" target="_blank" rel="noopener noreferrer" aria-label="Instagram KPU Labura">
-              <img class="nav-btn-icon" src="assets/ig.png" alt="Icon Instagram" />
-              <span class="nav-btn-text">
-                <span class="nav-btn-title">Instagram</span>
-                <span class="nav-btn-subtitle">Informasi dan publikasi</span>
-              </span>
-            </a>
-
-            <a class="nav-btn" href="https://wa.me/6281263184787" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Admin">
-              <img class="nav-btn-icon" src="assets/wa.png" alt="Icon WhatsApp" />
-              <span class="nav-btn-text">
-                <span class="nav-btn-title">WA Admin</span>
-                <span class="nav-btn-subtitle">Bantuan dan koordinasi</span>
-              </span>
-            </a>
-
-            <a class="nav-btn" href="mailto:fredyirawannasution@gmail.com" aria-label="Email Admin">
-              <img class="nav-btn-icon" src="assets/email.png" alt="Icon Email" />
-              <span class="nav-btn-text">
-                <span class="nav-btn-title">Email Admin</span>
-                <span class="nav-btn-subtitle">Layanan administrasi</span>
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <div class="toolbar-group">
-          <div class="group-label">Aplikasi Internal</div>
-          <div class="button-row">
-            <a class="nav-btn" href="https://lkh-kpulabura.pages.dev/" target="_blank" rel="noopener noreferrer" aria-label="Aplikasi LKH">
-              <img class="nav-btn-icon" src="assets/web.png" alt="Icon Aplikasi LKH" />
-              <span class="nav-btn-text">
-                <span class="nav-btn-title">Aplikasi LKH</span>
-                <span class="nav-btn-subtitle">Lembar kerja harian</span>
-              </span>
-            </a>
-
-            <a class="nav-btn" href="https://script.google.com/macros/s/AKfycbz5Wm25kaZLmHzeW2AD4-JJwgO3SrcSr3PetUa8ikAsAfoiejkBgAArGlW6ZJpQTUn9rA/exec" target="_blank" rel="noopener noreferrer" aria-label="Aplikasi SPJ">
-              <img class="nav-btn-icon" src="assets/web.png" alt="Icon Aplikasi SPJ" />
-              <span class="nav-btn-text">
-                <span class="nav-btn-title">Aplikasi SPJ</span>
-                <span class="nav-btn-subtitle">Sistem administrasi SPJ</span>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="frame-panel">
-      <div class="iframe-wrap">
-        <iframe
-          id="mainAppFrame"
-          src="https://script.google.com/macros/s/AKfycbw8Z_oHPfNWuRt67YJErA8gff6XXJSL5BZKrTpwFM_lj6FfcOrc43TCZvmDFfYBkedjhA/exec"
-          onload="handleFrameLoad()"
-          title="Portal Arsip Internal"
-        ></iframe>
-      </div>
-    </section>
-  </main>
+  <!-- FULL CONTENT -->
+  <div class="frame-wrapper">
+    <iframe
+      src="https://script.google.com/macros/s/AKfycbw8Z_oHPfNWuRt67YJErA8gff6XXJSL5BZKrTpwFM_lj6FfcOrc43TCZvmDFfYBkedjhA/exec"
+      onload="hideSplash()"
+    ></iframe>
+  </div>
 
   <script>
     function hideSplash() {
@@ -462,40 +143,6 @@
         splash.style.display = 'none';
       }, 700);
     }
-
-    function setAppFocusMode(enabled) {
-      document.body.classList.toggle('app-focused', enabled);
-    }
-
-    function detectLoginState() {
-      try {
-        const iframe = document.getElementById('mainAppFrame');
-        const href = iframe?.contentWindow?.location?.href || '';
-        if (href && href !== 'about:blank') {
-          const isLoginPage = /login|signin|masuk/i.test(href);
-          setAppFocusMode(!isLoginPage);
-          return;
-        }
-      } catch (error) {
-        // Jika iframe cross-origin dan tidak bisa dibaca, fallback tetap tampilkan portal.
-      }
-      setAppFocusMode(false);
-    }
-
-    function handleFrameLoad() {
-      hideSplash();
-      detectLoginState();
-    }
-
-    window.addEventListener('message', function (event) {
-      if (!event || !event.data) return;
-      if (event.data === 'APP_LOGGED_IN' || event.data.type === 'APP_LOGGED_IN') {
-        setAppFocusMode(true);
-      }
-      if (event.data === 'APP_LOGGED_OUT' || event.data.type === 'APP_LOGGED_OUT') {
-        setAppFocusMode(false);
-      }
-    });
 
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js');
