@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzspZwqyQtTKCTbYuDjk5jWNOQG-M8iyUcKN4ZBicXFI5Rtxi7rK1yAb92KBFDxkAh7tQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwSE0gfPacxsyNKN-QA4cpV8C3SWyewpiNfMGyU7wMNzdIC1_tiRWvHBs_A9ZYMJk3xxw/exec";
 
 async function loadData(){
   const output = document.getElementById("output");
